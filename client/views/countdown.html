@@ -1,0 +1,52 @@
+<h2>Cuenta regresiva <small>{{ time.str }}</small></h2>
+
+<div class="ui top attached segment">
+    <div class="ui grid">
+        <div class="{{ 3 | uiGrid }} wide column">
+            <label for="input_valor_inicial" class="ui teal header" >Intencidad:</label>
+        </div>
+        <div class="{{ 16 - 3 | uiGrid }} wide column">
+            <label style="display:block;padding: 5px 0 0;cursor: pointer;"><input type="checkbox" ng-model="crono.automatico"> Automatico</label>
+        </div>
+    </div>
+</div>
+<div class="ui attached segment">
+    <div class="ui grid">
+        <div class="{{ 3 | uiGrid }} wide column">
+            <label for="input_valor_inicial" class="ui teal header" >Valor inicial:</label>
+        </div>
+        <div class="{{ 16 - 3 | uiGrid }} wide column" >
+           <div class="ui grid">
+                <div class="{{ 16 / 4 | uiGrid }} wide column">
+                    <label>Horas</label>
+                    <div class="ui fluid input">
+                        <input type="text" ng-model="time.hh">
+                    </div>
+               </div>
+
+               <div class="{{ 16 / 4 | uiGrid }} wide column">
+                    <label>Minutos</label>
+                    <div class="ui fluid input">
+                        <input type="text" ng-model="time.mm">
+                    </div>
+               </div>
+
+               <div class="{{ 16 / 4 | uiGrid }} wide column">
+                    <label>Segundos</label>
+                    <div class="ui fluid input">
+                        <input type="text" ng-model="time.ss">
+                    </div>
+               </div>
+           </div>
+        </div>
+    </div>
+</div>
+<div class="ui bottom attached segment">
+    <div class="ui grid">
+        <div class="{{ 3 | uiGrid }} wide column"></div>
+        <div class="{{ 16 - 6 | uiGrid }} wide column">
+            <button class="fluid ui primary big button" ng-click="start()">Enviar</button>
+            <button class="fluid ui primary big button" ng-click="stop()">cancelar</button>
+        </div>
+    </div>
+</div>

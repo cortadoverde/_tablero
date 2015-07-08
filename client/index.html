@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html ng-app="TabaCrono">
+  <head>
+      <title>.:Taba Crono:.</title>
+      <meta charset="utf-8" />
+      <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+      <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+      <link rel="image_src" type="image/jpeg" href="/assets/logo.png" />
+      <link rel="stylesheet" type="text/css" class="ui" href="vendor/semantic-ui/dist/semantic.min.css">
+      <link type="text/css" rel="stylesheet" href="jspm_packages/github/sachinchoolur/angular-flash@1.1.0/dist/angular-flash.min.css" />
+      <script src="jspm_packages/system.js"></script>
+      <script src="config.js"></script>
+      <script>
+          var ipc = window.ipc = require('ipc');
+          System.config({
+            "baseURL": __dirname + "/"
+          })
+          System.import('tabaCrono/app');
+      </script>
+      <style>
+        .taba-hidden {
+          visibility: none;
+          opacity: 0;
+        }
+        .alert.customAlert {
+          box-shadow: rgba(0, 0, 0, 0.0980392) 0px 0px 10px;
+          min-width: 350px;
+          padding: 10px 50px 10px 30px;
+          position: fixed;
+          right: 20px;
+          top: 20px;
+          z-index: 9999;
+          height: 55px;
+        }
+      </style>
+  </head>
+    <body ng-controller="tabaCtrl" class="ui loading segment" taba-remove-loading-ready>
+
+      <div  class="ui segment">
+        <div flash-message="5000" ></div>
+        <div class="ui six buttons taba-hidden" taba-remove-hidden-ready >
+          <a class="ui button" ng-href="#/">Cronometro</button>
+          <a class="ui button" ng-href="#/countdown">Cuenta regresiva</button>
+          <a class="ui button" ng-href="#/marquesina">Marquesina</button>
+          <a class="ui button" ng-href="#/texto">Texto fijo</button>
+          <a class="ui button" ng-href="#/configuracion">Configurar</a>
+          <a class="ui {{ tablero.connected | tabaOnOfClass }} button" ng-click="switch()"> {{ tablero.connected | tabaOnOf }}</a>
+
+        </div>
+
+        <div class="ui icon warning message taba-hidden" taba-remove-hidden-ready ng-show="tablero.connecting">
+          <i class="notched spinner loading icon"></i>
+          <div class="content">
+            <div class="header">
+              Aguarde unos instantes
+            </div>
+            <p>mientras se comprueba la conexion con el tablero [intento {{tablero.attemps + 1}} de {{tablero.maxAttemps + 1}}]</p>
+          </div>
+        </div>
+
+        <div class="ui error message taba-hidden" taba-remove-hidden-ready ng-show="tablero.errorConnection">
+          <div class="content">
+            <div class="header">
+              No fue posible establecer conexión
+            </div>
+            <p>
+              <a class="ui primary button" ng-click="resetAttemps($event)"> Probar otra vez </a>
+            </p>
+          </div>
+        </div>
+
+        <div ng-view style="margin-top:1em">
+
+
+        </div>
+
+
+
+      </div>
+    </body>
+</html>

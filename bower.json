@@ -1,0 +1,21 @@
+{
+  "name": "node_app_electron",
+  "version": "0.0.1",
+  "homepage": "https://github.com/cortadoverde/node_app_electron",
+  "authors": [
+    "cortadoverde <p.a.samu@gmail.com>"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "cliente/vendor/",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "jquery": "~2.1.4",
+    "semantic-ui": "~2.0.2"
+  }
+}

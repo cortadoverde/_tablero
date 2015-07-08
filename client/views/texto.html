@@ -1,0 +1,27 @@
+<h2>Testo fijo</h2>
+
+
+<div class="ui top attached segment">
+    <div class="ui grid">
+        <div class="{{ 3 | uiGrid }} wide column">
+            <label for="input_valor_inicial" class="ui teal header" >Texto:</label> 
+            <p>                
+                <small>maximo 6 carácteres</small>
+            </p>
+        </div>
+        <div class="{{ 16 - 3 | uiGrid }} wide column" >
+            <div class="ui fluid input">
+                <input type="text" ng-model="crono.text">
+            </div>
+        </div>
+    </div>    
+</div>
+
+<div class="ui bottom attached segment">
+    <div class="ui grid">
+        <div class="{{ 3 | uiGrid }} wide column"></div>
+        <div class="{{ 16 - 6 | uiGrid }} wide column">
+            <button class="fluid ui primary big button" ng-click="submit()">Enviar</button>
+        </div>
+    </div>    
+</div>

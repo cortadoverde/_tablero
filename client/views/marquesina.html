@@ -1,0 +1,27 @@
+<h2>Marquesina</h2>
+
+<div class="ui top attached segment">
+    <div class="ui grid">
+
+        <div class="{{ 3 | uiGrid }} wide column">
+            <label for="input_valor_inicial" class="ui teal header" >Texto:</label>
+        </div>
+
+        <div class="{{ 7 | uiGrid }} wide column">
+            <div class="ui fluid input">
+                <input type="text" ng-model="crono.marquesina.texto">
+            </div>
+        </div>
+    </div>    
+</div>
+<div class="ui bottom attached segment">
+    <div class="ui grid">
+        <div class="{{ 3 | uiGrid }} wide column"></div>
+        <div class="{{ 5 | uiGrid }} wide column">
+            <button class="fluid ui primary big button" ng-click="submit()">Iniciar</button>
+        </div>
+        <div class="{{ 5 | uiGrid }} wide column">
+            <button class="fluid ui red big button" ng-click="stop()" ng-show="crono.marquesina.run">detener</button>
+        </div>
+    </div>    
+</div>
