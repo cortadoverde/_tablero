@@ -3,7 +3,7 @@ var events = require('events'),
 
 function Client(){
     events.EventEmitter.call(this);
-
+    
     this.isConnect = false;
 
     this.connect = function(port, host) {

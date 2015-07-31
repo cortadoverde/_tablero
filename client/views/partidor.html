@@ -1,0 +1,83 @@
+<h2>
+    Partidor
+   
+    
+
+    <div class="timer" style="
+    float: right;
+    padding: 0 10px;
+    font-size: 2.5em;
+">
+        {{ partidor.timer | HMMSS }}
+    </div>
+
+    <div style="float:right;" ng-if="partidor.showRest">
+        {{ partidor.rest | HMMSS }} 
+    </div>
+
+</h2>
+
+
+
+<div class="ui top attached segment">
+    <div class="ui grid">
+        <div class="{{ 4 | uiGrid }} wide column">
+            <label for="input_valor_inicial" class="ui teal header" >Cantidad de participantes:</label>
+            <div class="ui fluid input">
+                <input type="text" ng-model="partidor.participantes">
+            </div>
+        </div>
+
+        <div class="{{ 2 | uiGrid }} wide column">
+            <label for="input_valor_inicial" class="ui teal header" >Promedio:</label>
+            <div class="ui fluid input">
+                <input type="text" ng-model="partidor.promedio">
+            </div>
+        </div>
+
+        <div class="{{ 4 | uiGrid }} wide column">
+            <label for="input_valor_inicial" class="ui teal header" >Tiempo preparacion:</label>
+            <div class="ui fluid input">
+                <input type="text" ng-model="partidor.preparacion">
+            </div>
+        </div>
+
+        <div class="{{ 4 | uiGrid }} wide column">
+            <label for="input_valor_inicial" class="ui teal header" >Inicio:</label>
+            <div class="ui fluid input">
+                <input type="text" ng-model="partidor.inicio">
+            </div>
+        </div>
+
+        <div class="{{ 3 | uiGrid }} wide column">
+           <button class="fluid ui primary big button" ng-click="createPartida()">Cargar</button>
+        </div>
+    </div>    
+</div>
+<div class="ui bottom attached segment">
+    <div ng-if="partidor.list.length > 0">
+        <div class="ui grid" style="padding:10px 15px">                                  
+            <div class="{{ 8 | uiGrid }} wide column" ng-repeat="i in partidor.list" > 
+                <div class="ui grid casillero" style="border-bottom:solid 1px rgba(0,0,0,.15)" ng-class="{active: partidor.current == i.id }">  
+                    <div class="{{ 1 | uiGrid }} wide column">
+                        <h3>{{i.id + 1}}</h3>
+                    </div>
+                    <div class="{{ 4 | uiGrid }} wide column" style="padding-top: 18px;font-size: 15px;font-weight: 600;">
+                        {{i.start | HMMSS }}
+                    </div>
+                    <div class="{{ 4 | uiGrid }} wide column">
+                        <div class="ui fluid input">
+                            <input type="number" class="type" ng-model="partidor.list[i.id].start">
+                        </div>
+                    </div>
+                </div> 
+            </div>
+        </div>
+        <div class="ui grid">
+            <div class="{{ (16-4) / 2 | uiGrid }} wide column"></div>
+            <div class="{{ 4 | uiGrid }} wide column">
+                <button class="fluid ui primary big button" ng-click="iniciar()">Iniciar</button>
+            </div>
+        </div>
+    </div>    
+</div>

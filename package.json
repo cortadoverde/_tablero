@@ -6,7 +6,7 @@
     "start": "electron .",
     "build": "electron-packager . Taba --ignore=node_modules/electron-*  --platform=win32 --arch=x64 --version=0.28.1 --icon=taba.ico",
     "build32": "electron-packager . Taba32 --ignore=node_modules/electron-*  --platform=win32 --arch=ia32 --version=0.28.1 --icon=taba.ico",
-    "pack": "asar pack Taba-win32/resources/app Taba-win32/resources/app.asar"
+    "pack": "asar pack Taba-win32-x64/resources/app Taba-win32/resources/app.asar"
   },
   "devDependencies": {
     "electron-prebuilt": "^0.28.1",
@@ -30,5 +30,8 @@
       "babel-runtime": "npm:babel-runtime@^5.1.13",
       "core-js": "npm:core-js@^0.9.4"
     }
+  },
+  "dependencies": {
+    "gulp-clean": "^0.3.1"
   }
 }

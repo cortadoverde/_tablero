@@ -14,7 +14,7 @@ gulp.task('transpile-app', function() {
 
 gulp.task('jspm_bundle', function(){
   var bundle = 'tabaCrono/app';
-  return run(['jspm bundle', bundle , 'client/dist/bundle.js --inject'].join(' ')).exec();
+  return run('jspm bundle tabaCrono/app client/dist/bundle.js --inject').exec();
 })
 
 gulp.task('jspm_pack', function(){

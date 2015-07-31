@@ -8,6 +8,13 @@
       <link rel="image_src" type="image/jpeg" href="/assets/logo.png" />
       <link rel="stylesheet" type="text/css" class="ui" href="vendor/semantic-ui/dist/semantic.min.css">
       <link type="text/css" rel="stylesheet" href="jspm_packages/github/sachinchoolur/angular-flash@1.1.0/dist/angular-flash.min.css" />
+      <link type="text/css" rel="stylesheet" href="dist/taba.css" />
+      <script>
+          var ipc = window.ipc = require('ipc');
+          var __root = window.__root = __dirname;
+      </script>
+
+
       <script src="jspm_packages/system.js"></script>
       <script src="config.js"></script>
       <script>
@@ -15,6 +22,7 @@
           System.config({
             "baseURL": __dirname + "/"
           })
+
           System.import('tabaCrono/app');
       </script>
       <style>
@@ -38,14 +46,15 @@
 
       <div  class="ui segment">
         <div flash-message="5000" ></div>
-        <div class="ui six buttons taba-hidden" taba-remove-hidden-ready >
+        <div class="ui eight buttons taba-hidden" taba-remove-hidden-ready >
           <a class="ui button" ng-href="#/">Cronometro</button>
+          <a class="ui button" ng-href="#/partidor">Partidor</button>
           <a class="ui button" ng-href="#/countdown">Cuenta regresiva</button>
           <a class="ui button" ng-href="#/marquesina">Marquesina</button>
           <a class="ui button" ng-href="#/texto">Texto fijo</button>
           <a class="ui button" ng-href="#/configuracion">Configurar</a>
-          <a class="ui {{ tablero.connected | tabaOnOfClass }} button" ng-click="switch()"> {{ tablero.connected | tabaOnOf }}</a>
-
+          <a class="ui {{ tablero.connected | tabaOnOfClass }} button" ng-click="switch()"> {{ tablero.connected | tabaOnOf }} (C) </a>
+          <a class="ui {{ semaforo.connected | tabaOnOfClass }} button" ng-click="switchSem()">{{ semaforo.connected | tabaOnOf }} (S)</a>
         </div>
 
         <div class="ui icon warning message taba-hidden" taba-remove-hidden-ready ng-show="tablero.connecting">
@@ -77,5 +86,7 @@
 
 
       </div>
+
+
     </body>
 </html>

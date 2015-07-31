@@ -4,7 +4,9 @@ var _arguments = arguments;
 var app = require('app');
 var BrowserWindow = require('browser-window');
 var ipc = require('ipc');
-var Tablero = require('./lib/tcp.client');
+var Tablero = require('./lib/tcp.client').instance();
+var Semaforo = require('./lib/sem.client').instance();
+
 var statusTablero = false;
 var Menu = require('menu');
 var path = require('path');
@@ -14,6 +16,9 @@ require('crash-reporter').start();
 
 var mainWindow = null;
 var appIcon = null;
+
+var fs = require('fs');
+var path = require('path');
 
 app.on('window-all-closed', function () {
     if (process.platform != 'darwin') {
@@ -58,10 +63,17 @@ app.on('ready', function () {
                     message: 'desarrollado por tabasoftware \r soporte@tabasoftware.com.ar'
                 });
             }
+        },
+        {
+            label: 'Consola',
+            accelerator: 'F12',
+            click: function click() {
+               mainWindow.toggleDevTools();
+            }
         }]
     }]);
 
-    //mainWindow.setMenu(menu);
+    mainWindow.setMenu(menu);
 
     mainWindow.loadUrl('file://' + __dirname + '/../client/index.html');
 
@@ -85,8 +97,20 @@ ipc.on('crono-check', function (_event, arg) {
     _event.sender.send('crono-check-repply', resp);
 });
 
+ipc.on('save_data', function(e, args ) {
+    var d = new Date();
+    var filename = d.getFullYear()+'_'+d.getMonth()+'_'+d.getDay() + '.csv';
+    var pathFile = path.dirname(__dirname) + '/' + filename; 
+
+    fs.appendFile(pathFile, args.join(';') + "\r" );
+})
+
 ipc.on('crono-connect', function (_event, ipConnection) {
     Tablero.connect(8899, ipConnection);
+});
+
+ipc.on('semaforo-connect', function (_event, ipConnection) {
+     Semaforo.connect(8899, ipConnection)
 });
 
 ipc.on('crono-disconnect', function (_event) {
@@ -104,6 +128,17 @@ ipc.on('crono-send', function (_event, _command) {
     }
 });
 
+ipc.on('semaforo-send', function (_event, _command) {
+    if (Semaforo.isConnect) {
+        var command;
+        command = _command.substr(0, 4) + '\r';
+        Semaforo.socket.write(command);
+    } else {
+        mainWindow.webContents.send('semaforo-error', 'no se puedo establecer la conexion');
+    }
+});
+
+
 Tablero.on('error', function () {
     var d = _arguments;
     mainWindow.webContents.send('crono-error', d);
@@ -117,3 +152,28 @@ Tablero.on('ready', function () {
 Tablero.on('disconnect', function () {
     mainWindow.webContents.send('crono-status', 'disconnect');
 });
+
+
+Semaforo.on('error', function () {
+    var d = _arguments;
+    mainWindow.webContents.send('semaforo-error', d);
+});
+
+Semaforo.on('ready', function () {
+    console.log('sem conectado')
+    mainWindow.webContents.send('semaforo-status', 'connect');
+});
+
+Semaforo.on('disconnect', function () {
+    mainWindow.webContents.send('semaforo-status', 'disconnect');
+});
+
+Semaforo.on('data', function(){
+    //console.log(arguments);
+    mainWindow.webContents.send('semaforo-response');
+})
+
+ipc.on('sim-semaforo-response', function(){
+    mainWindow.webContents.send('semaforo-response');
+});
+
